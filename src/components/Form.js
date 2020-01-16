@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from '@emotion/styled'
+import styled from '@emotion/styled';
 import useMoney from '../hooks/useMoney';
 
 const Button = styled.input`
