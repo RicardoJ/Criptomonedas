@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import image from './cryptomonedas.png';
 import Form from './components/Form';
@@ -34,6 +34,13 @@ margin-top: 80px;
 }
 `;
 function App() {
+  const [money , setMoney] = useState('');
+  const [cryptoCurrency , setCryptoCurrency] = useState('');
+
+  useEffect(()=>{
+    if(money === '') return;
+  }, [money , cryptoCurrency])
+
   return (
     <Container>
       <div>
@@ -44,7 +51,10 @@ function App() {
       </div>
       <div>
         <Heading>Cotiza criptomonedas</Heading>
-        <Form/>
+        <Form
+        setMoney = {setMoney}
+        setCryptoCurrency = {setCryptoCurrency}
+        />
       </div>
     </Container>
   );
