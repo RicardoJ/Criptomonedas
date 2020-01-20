@@ -22,6 +22,7 @@ const Button = styled.input`
 `
 const Form = () => {
     const [listCrypto, setListCrypto] = useState([]);
+    const [error, setError] = useState(false);
 
     const CURRENCY = [
         { id: 'COL', name: 'Peso Colombiano' },
@@ -41,8 +42,20 @@ const Form = () => {
         }
         queryAPI();
     }, []);
+    const quoteCurrency = e =>{
+        e.preventDefault();
+        if (money === '' || crypto === '') {
+            setError(true);
+            return;
+        }
+        setError(false);
+    }
+
     return (
-        <form>
+        <form
+        onSubmit ={quoteCurrency}
+        >
+            {error ? 'Existe un error' : null}
             <SelectMoney />
             <SelectCrypto />
             <Button
