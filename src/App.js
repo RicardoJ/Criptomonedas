@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import image from './cryptomonedas.png';
 import Form from './components/Form';
+import Quote from './components/Quote';
+import axios from 'axios';
+import Spinner from './components/Spinner';
 
 const Container = styled.div`
 max-width: 900px;
@@ -34,6 +37,28 @@ margin-top: 80px;
 }
 `;
 function App() {
+  const [money, setMoney] = useState('');
+  const [cryptoCurrency, setCryptoCurrency] = useState('');
+  const [result, setResult] = useState({});
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const quoteCurrency = async () => {
+      if (money === '') return;
+      const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${cryptoCurrency}&tsyms=${money}`;
+      const { data } = await axios.get(url);
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+        setResult(data.DISPLAY[cryptoCurrency][money])
+      }, 3000)
+
+    }
+    quoteCurrency();
+
+  }, [money, cryptoCurrency])
+
+  const component = (loading) ? <Spinner /> : <Quote result={result} />
   return (
     <Container>
       <div>
@@ -44,7 +69,11 @@ function App() {
       </div>
       <div>
         <Heading>Cotiza criptomonedas</Heading>
-        <Form/>
+        <Form
+          setMoney={setMoney}
+          setCryptoCurrency={setCryptoCurrency}
+        />
+        {component}
       </div>
     </Container>
   );
