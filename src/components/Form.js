@@ -26,7 +26,6 @@ const Form = ({setMoney, setCryptoCurrency}) => {
     const [error, setError] = useState(false);
 
     const CURRENCY = [
-        { id: 'COL', name: 'Peso Colombiano' },
         { id: 'USD', name: 'Dolar Estados Unidos' },
         { id: 'MXN', name: 'Peso Mexicano' },
         { id: 'EUR', name: 'Euro' },
