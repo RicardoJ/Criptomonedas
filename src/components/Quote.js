@@ -20,7 +20,7 @@ const Price = styled.p`
 `
 const Quote = ({ result }) => {
     if (Object.keys(result).length === 0) return null;
-    console.log(result)
+    
     return (
         <ResultDiv>
             <Price>El precio es: <span>{result.PRICE}</span></Price>
